@@ -18,7 +18,26 @@ composer require scoutapp/scout-apm-bundle
 
 ### Configuration
 
-tbc
+Create a file `config/packages/scoutapm.xml` with the contents:
+
+```xml
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:scoutapm="http://example.org/schema/dic/scout_apm"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <scoutapm:config>
+        <scoutapm:scoutapm
+            name="my application name..."
+            key="my scout key..."
+            monitor="true"
+        />
+    </scoutapm:config>
+</container>
+
+```
 
 #### Log Messages
 

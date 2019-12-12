@@ -11,6 +11,7 @@
             <factory class="Scoutapm\ScoutApmBundle\ScoutApmAgentFactory" method="createAgent" />
             <argument type="service" id="Psr\Log\LoggerInterface" />
             <argument type="service" id="Psr\SimpleCache\CacheInterface" on-invalid="null" />
+            <argument key="$agentConfiguration" />
         </service>
 
         <service id="Scoutapm\ScoutApmBundle\EventListener\InstrumentationListener"
