@@ -31,13 +31,20 @@ Create a file `config/packages/scoutapm.xml` with the contents:
     <scoutapm:config>
         <scoutapm:scoutapm
             name="my application name..."
-            key="my scout key..."
+            key="%env(SCOUT_KEY)%"
             monitor="true"
         />
     </scoutapm:config>
 </container>
+```
+
+It is recommended not to commit the Scout APM key, instead configure via environment variables, e.g. in `.env.local`:
 
 ```
+SCOUT_KEY=your_scout_key_here
+```
+
+Since the configuration XML above uses `%env(SCOUT_KEY)%` this will be pulled in automatically.
 
 #### Log Messages
 
