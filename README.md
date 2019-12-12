@@ -20,6 +20,10 @@ composer require scoutapp/scout-apm-bundle
 
 tbc
 
+#### Log Messages
+
+Scout uses PSR-3 logging configured by Symfony, so log messages can be found in `var/log/dev.log` in development.
+
 ## Documentation
 
 For full installation and troubleshooting documentation, visit our [help site](https://docs.scoutapm.com/#symfony).
