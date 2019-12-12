@@ -11,5 +11,11 @@
             <factory class="Scoutapm\ScoutApmBundle\ScoutApmAgentFactory" method="createAgent" />
             <argument type="service" id="service_container" />
         </service>
+
+        <service id="Scoutapm\ScoutApmBundle\EventListener\InstrumentationListener"
+                 class="Scoutapm\ScoutApmBundle\EventListener\InstrumentationListener">
+            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="Scoutapm\ScoutApmAgent" />
+        </service>
     </services>
 </container>
