@@ -16,6 +16,17 @@ A Scout account is required. [Signup for Scout](https://scoutapm.com/users/sign_
 composer require scoutapp/scout-apm-bundle
 ```
 
+Add the bundle to your `config/bundles.php`:
+
+```php
+<?php
+
+return [
+    // ... other bundles...
+    Scoutapm\ScoutApmBundle\ScoutApmBundle::class => ['all' => true],
+];
+```
+
 ### Configuration
 
 Create a file `config/packages/scoutapm.xml` with the contents:
