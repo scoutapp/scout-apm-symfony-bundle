@@ -6,7 +6,7 @@ Detailed performance metrics and transaction traces are collected once the scout
 ## Requirements
 
 * PHP Version: PHP 7.1+
-* Symfony Version: (tbc)
+* Symfony Version: 4.0+
 
 ## Quick Start
 
