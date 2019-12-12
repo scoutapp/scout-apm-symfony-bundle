@@ -13,7 +13,7 @@ Detailed performance metrics and transaction traces are collected once the scout
 A Scout account is required. [Signup for Scout](https://scoutapm.com/users/sign_up).
 
 ```bash
-composer require scoutapp/scout-apm-bundle
+composer require scoutapp/scout-apm-symfony-bundle
 ```
 
 Add the bundle to your `config/bundles.php`:
