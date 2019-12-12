@@ -12,6 +12,7 @@ use Scoutapm\ScoutApmAgent;
 
 final class ScoutApmAgentFactory
 {
+    /** @noinspection PhpUnused */
     public static function createAgent(
         LoggerInterface $logger,
         ?CacheInterface $cache,

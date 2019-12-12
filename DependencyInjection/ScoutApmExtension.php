@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Scoutapm\ScoutApmBundle\DependencyInjection;
 
+use Exception;
 use Scoutapm\ScoutApmAgent;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,12 +15,11 @@ final class ScoutApmExtension extends Extension
 {
     /**
      * @inheritDoc
-     * @throws \Exception
+     * @throws Exception
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container) : void
     {
-        $configuration = $this->getConfiguration($configs, $container);
-        $config = $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration(new Configuration(), $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('scoutapm.xml');
