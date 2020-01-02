@@ -4,12 +4,18 @@ declare(strict_types=1);
 
 namespace Scoutapm\ScoutApmBundle\EventListener;
 
+use Closure;
 use Exception;
+use ReflectionClass;
+use ReflectionException;
 use Scoutapm\Events\Span\Span;
 use Scoutapm\ScoutApmAgent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use function is_array;
+use function is_string;
+use function sprintf;
 
 /** @noinspection ContractViolationInspection */
 final class InstrumentationListener implements EventSubscriberInterface
@@ -36,7 +42,37 @@ final class InstrumentationListener implements EventSubscriberInterface
     public function onKernelController(ControllerEvent $controllerEvent) : void
     {
         /** @noinspection UnusedFunctionResultInspection */
-        $this->agent->startSpan(Span::INSTRUMENT_CONTROLLER . '/eh'); // @todo determine controller name
+        $this->agent->startSpan(sprintf(
+            '%s/%s',
+            Span::INSTRUMENT_CONTROLLER,
+            $this->controllerNameFromCallable($controllerEvent->getController())
+        ));
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    private function controllerNameFromCallable(callable $controller) : string
+    {
+        if (is_array($controller)) {
+            /**
+             * @link https://github.com/vimeo/psalm/commit/e68fd02e805dffd503f2ce578a2ecae12c11b8af
+             * Update our Psalm version when possible.
+             *
+             * @psalm-suppress ArgumentTypeCoercion Reported this and it's already fixed in Psalm's dev-master
+             */
+            return sprintf('%s::%s', (new ReflectionClass($controller[0]))->getShortName(), $controller[1]);
+        }
+
+        if (is_string($controller)) {
+            return $controller;
+        }
+
+        if ($controller instanceof Closure) {
+            return 'closure';
+        }
+
+        return 'unknown';
     }
 
     /** @noinspection PhpUnused */
