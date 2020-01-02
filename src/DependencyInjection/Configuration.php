@@ -14,6 +14,7 @@ final class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('scout_apm');
 
+        /** @psalm-suppress PossiblyUndefinedMethod analysis failures are down to annotations upstream */
         $children = $treeBuilder->getRootNode()
             ->children()
                 ->arrayNode('scoutapm')
