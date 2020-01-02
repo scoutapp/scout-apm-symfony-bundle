@@ -12,15 +12,17 @@ use Scoutapm\Connector\Connector;
 use Scoutapm\Events\Metadata;
 use Scoutapm\Extension\ExtentionCapabilities;
 use Scoutapm\ScoutApmBundle\ScoutApmAgentFactory;
+use function json_decode;
+use function json_encode;
 
 /** @covers \Scoutapm\ScoutApmBundle\ScoutApmAgentFactory */
 final class ScoutApmAgentFactoryTest extends TestCase
 {
     public function testFactoryConfiguresFrameworkNameAndVersion() : void
     {
-        $logger = $this->createMock(LoggerInterface::class);
-        $cache = $this->createMock(CacheInterface::class);
-        $connector = $this->createMock(Connector::class);
+        $logger       = $this->createMock(LoggerInterface::class);
+        $cache        = $this->createMock(CacheInterface::class);
+        $connector    = $this->createMock(Connector::class);
         $phpExtension = $this->createMock(ExtentionCapabilities::class);
 
         $connector->expects(self::at(3))

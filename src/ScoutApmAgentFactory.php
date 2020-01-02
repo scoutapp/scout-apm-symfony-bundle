@@ -12,10 +12,14 @@ use Scoutapm\Connector\Connector;
 use Scoutapm\Extension\ExtentionCapabilities;
 use Scoutapm\ScoutApmAgent;
 use Symfony\Component\HttpKernel\Kernel;
+use function array_filter;
+use function array_merge;
 
 final class ScoutApmAgentFactory
 {
-    /** @noinspection PhpUnused */
+    /**
+     * @param array<string, mixed> $agentConfiguration
+     */
     public static function createAgent(
         LoggerInterface $logger,
         ?CacheInterface $cache,
