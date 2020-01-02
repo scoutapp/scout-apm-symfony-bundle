@@ -32,7 +32,10 @@
     "autoload": {
         "psr-4": {
             "Scoutapm\\ScoutApmBundle\\": "./src/"
-        }
+        },
+        "files": [
+            "./symfony-version-compatibility.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
