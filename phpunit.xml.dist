@@ -12,7 +12,7 @@
 >
     <testsuites>
         <testsuite name="unit">
-            <directory>./Tests/Unit</directory>
+            <directory>./test/Unit</directory>
         </testsuite>
     </testsuites>
     <php>
@@ -20,12 +20,7 @@
     </php>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory>./</directory>
-            <exclude>
-                <directory>Resources</directory>
-                <directory>Tests</directory>
-                <directory>vendor</directory>
-            </exclude>
+            <directory>./src</directory>
         </whitelist>
     </filter>
 </phpunit>
