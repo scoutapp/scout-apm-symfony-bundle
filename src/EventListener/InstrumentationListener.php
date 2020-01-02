@@ -30,6 +30,7 @@ final class InstrumentationListener implements EventSubscriberInterface
 
     /**
      * @throws Exception
+     *
      * @noinspection PhpUnused
      */
     public function onKernelController(ControllerEvent $controllerEvent) : void
@@ -46,6 +47,7 @@ final class InstrumentationListener implements EventSubscriberInterface
 
     /**
      * @throws Exception
+     *
      * @noinspection PhpUnused
      */
     public function onKernelTerminate() : void

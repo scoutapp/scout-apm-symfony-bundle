@@ -14,8 +14,9 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 final class ScoutApmExtension extends Extension
 {
     /**
-     * @inheritDoc
      * @throws Exception
+     *
+     * @inheritDoc
      */
     public function load(array $configs, ContainerBuilder $container) : void
     {
