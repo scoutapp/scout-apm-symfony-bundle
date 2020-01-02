@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace Scoutapm\ScoutApmBundle\Tests\Unit\DependencyInjection;
 
+use Exception;
+use PHPUnit\Framework\TestCase;
 use Scoutapm\ScoutApmAgent;
 use Scoutapm\ScoutApmBundle\DependencyInjection\ScoutApmExtension;
-use PHPUnit\Framework\TestCase;
 use Scoutapm\ScoutApmBundle\EventListener\InstrumentationListener;
 use Scoutapm\ScoutApmBundle\ScoutApmAgentFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use function array_filter;
 
 /** @covers \Scoutapm\ScoutApmBundle\DependencyInjection\ScoutApmExtension */
 final class ScoutApmExtensionTest extends TestCase
 {
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testLoadSetsUpDependencyInjectionConfiguration() : void
     {
         $builder = new ContainerBuilder();
@@ -27,9 +29,7 @@ final class ScoutApmExtensionTest extends TestCase
 
         (new ScoutApmExtension())->load(
             [
-                [
-                    'scoutapm' => $scoutApmConfiguration,
-                ]
+                ['scoutapm' => $scoutApmConfiguration],
             ],
             $builder
         );
@@ -48,7 +48,7 @@ final class ScoutApmExtensionTest extends TestCase
         self::assertEquals(['kernel.event_subscriber' => [[]]], $listener->getTags());
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testLoadPassesEmptyConfigurationAsFactoryParameterWhenNoConfigurationPassedToLoad() : void
     {
         $builder = new ContainerBuilder();
