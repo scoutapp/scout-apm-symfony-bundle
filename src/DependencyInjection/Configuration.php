@@ -44,7 +44,10 @@ final class Configuration implements ConfigurationInterface
             return $treeBuilder->getRootNode();
         }
 
-        /** @psalm-suppress DeprecatedMethod newer SF versions have the getRootNode method, so won't reach here */
+        /**
+         * @psalm-suppress DeprecatedMethod newer SF versions have the getRootNode method, so won't reach here
+         * @psalm-suppress UndefinedMethod even newer SF versions remove this method entirely, but shouldn't reach here
+         */
         return $treeBuilder->root(self::ROOT_NODE_NAME);
     }
 }
