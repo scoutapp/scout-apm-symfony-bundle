@@ -17,6 +17,7 @@ final class Configuration implements ConfigurationInterface
 
     public function getConfigTreeBuilder() : TreeBuilder
     {
+        /** @psalm-suppress TooManyArguments */
         $treeBuilder = new TreeBuilder(self::ROOT_NODE_NAME);
 
         /** @psalm-suppress PossiblyUndefinedMethod analysis failures are down to annotations upstream */
