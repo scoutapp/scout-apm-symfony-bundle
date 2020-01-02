@@ -26,6 +26,9 @@ final class ScoutApmExtension extends Extension
         $loader->load('scoutapm.xml');
 
         $definition = $container->getDefinition(ScoutApmAgent::class);
-        $definition->replaceArgument('$agentConfiguration', $config['scoutapm']);
+        $definition->replaceArgument(
+            '$agentConfiguration',
+            array_key_exists('scoutapm', $config) ? $config['scoutapm'] : []
+        );
     }
 }
