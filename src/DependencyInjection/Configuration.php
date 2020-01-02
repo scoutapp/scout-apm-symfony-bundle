@@ -5,20 +5,22 @@ declare(strict_types=1);
 namespace Scoutapm\ScoutApmBundle\DependencyInjection;
 
 use Scoutapm\Config\ConfigKey;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use function method_exists;
 
 final class Configuration implements ConfigurationInterface
 {
+    private const ROOT_NODE_NAME = 'scout_apm';
+
     public function getConfigTreeBuilder() : TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
+        $treeBuilder = new TreeBuilder(self::ROOT_NODE_NAME);
 
-        /**
-         * @psalm-suppress PossiblyUndefinedMethod analysis failures are down to annotations upstream
-         * @psalm-suppress DeprecatedMethod TreeBuilder changed between SF4-5, method is deprecated now
-         */
-        $children = $treeBuilder->root('scout_apm')
+        /** @psalm-suppress PossiblyUndefinedMethod analysis failures are down to annotations upstream */
+        $children = $this->crossCompatibleRootNode($treeBuilder)
             ->children()
                 ->arrayNode('scoutapm')
                     ->children();
@@ -32,5 +34,17 @@ final class Configuration implements ConfigurationInterface
             ->end();
 
         return $treeBuilder;
+    }
+
+    /** @return NodeDefinition|ArrayNodeDefinition */
+    private function crossCompatibleRootNode(TreeBuilder $treeBuilder) : NodeDefinition
+    {
+        /** @noinspection ClassMemberExistenceCheckInspection */
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            return $treeBuilder->getRootNode();
+        }
+
+        /** @psalm-suppress DeprecatedMethod newer SF versions have the getRootNode method, so won't reach here */
+        return $treeBuilder->root(self::ROOT_NODE_NAME);
     }
 }
