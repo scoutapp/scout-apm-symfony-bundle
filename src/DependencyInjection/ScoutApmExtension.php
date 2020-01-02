@@ -22,7 +22,7 @@ final class ScoutApmExtension extends Extension
     {
         $config = $this->processConfiguration(new Configuration(), $configs);
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../Resources/config'));
         $loader->load('scoutapm.xml');
 
         $definition = $container->getDefinition(ScoutApmAgent::class);
