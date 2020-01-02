@@ -12,10 +12,13 @@ final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder() : TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('scout_apm');
+        $treeBuilder = new TreeBuilder();
 
-        /** @psalm-suppress PossiblyUndefinedMethod analysis failures are down to annotations upstream */
-        $children = $treeBuilder->getRootNode()
+        /**
+         * @psalm-suppress PossiblyUndefinedMethod analysis failures are down to annotations upstream
+         * @psalm-suppress DeprecatedMethod TreeBuilder changed between SF4-5, method is deprecated now
+         */
+        $children = $treeBuilder->root('scout_apm')
             ->children()
                 ->arrayNode('scoutapm')
                     ->children();
