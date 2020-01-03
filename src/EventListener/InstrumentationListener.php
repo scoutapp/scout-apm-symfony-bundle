@@ -38,10 +38,14 @@ final class InstrumentationListener implements EventSubscriberInterface
      * @throws Exception
      *
      * @noinspection PhpUnused
+     * @psalm-suppress MissingDependency https://github.com/scoutapp/scout-apm-symfony-bundle/issues/10
      */
     public function onKernelController(ControllerEvent $controllerEvent) : void
     {
-        /** @noinspection UnusedFunctionResultInspection */
+        /**
+         * @noinspection UnusedFunctionResultInspection
+         * @psalm-suppress UndefinedMethod https://github.com/scoutapp/scout-apm-symfony-bundle/issues/10
+         */
         $this->agent->startSpan(sprintf(
             '%s/%s',
             Span::INSTRUMENT_CONTROLLER,

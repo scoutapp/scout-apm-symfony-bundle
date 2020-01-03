@@ -65,6 +65,10 @@ final class InstrumentationListenerTest extends TestCase
      */
     public function testControllerNameIsSentOnControllerEvent(callable $controller, string $expectedName) : void
     {
+        /**
+         * @psalm-suppress MissingDependency https://github.com/scoutapp/scout-apm-symfony-bundle/issues/10
+         * @psalm-suppress TooManyArguments https://github.com/scoutapp/scout-apm-symfony-bundle/issues/10
+         */
         $controllerEvent = new ControllerEvent(
             $this->createMock(HttpKernelInterface::class),
             $controller,
