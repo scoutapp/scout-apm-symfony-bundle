@@ -21,5 +21,10 @@
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="Scoutapm\ScoutApmAgent" />
         </service>
+
+        <service id="Scoutapm\ScoutApmBundle\EventListener\DoctrineSqlLogger">
+            <factory class="Scoutapm\ScoutApmBundle\EventListener\DoctrineSqlLogger" method="register" />
+            <tag name="thing" />
+        </service>
     </services>
 </container>

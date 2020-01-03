@@ -15,4 +15,13 @@
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>
+    <issueHandlers>
+        <!-- Doctrine\DBAL\Configuration is marked @internal, so using the get/setSQLLogger methods raises an error -->
+        <InternalMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Doctrine\DBAL\Configuration::setSQLLogger"/>
+                <referencedMethod name="Doctrine\DBAL\Configuration::getSQLLogger"/>
+            </errorLevel>
+        </InternalMethod>
+    </issueHandlers>
 </psalm>
