@@ -82,4 +82,42 @@ final class InstrumentationListenerTest extends TestCase
 
         $this->listener->onKernelController($controllerEvent);
     }
+
+    public function testSpanIsStoppedOnKernelResponse() : void
+    {
+        $this->agent->expects(self::once())
+            ->method('stopSpan');
+
+        $this->listener->onKernelResponse();
+    }
+
+    /** @throws Exception */
+    public function testAgentSendsPayloadOnKernelTerminate() : void
+    {
+        $this->agent->expects(self::once())
+            ->method('send');
+
+        $this->listener->onKernelTerminate();
+    }
+
+    public function testAgentConnectsOnKernelRequest() : void
+    {
+        $this->agent->expects(self::once())
+            ->method('connect');
+
+        $this->listener->onKernelRequest();
+    }
+
+    public function testListenerIsSubscribedToCorrectEvents() : void
+    {
+        self::assertEquals(
+            [
+                'kernel.request' => ['onKernelRequest', -100],
+                'kernel.controller' => ['onKernelController', -100],
+                'kernel.response' => ['onKernelResponse', 0],
+                'kernel.terminate' => ['onKernelTerminate', 0],
+            ],
+            InstrumentationListener::getSubscribedEvents()
+        );
+    }
 }
