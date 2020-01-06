@@ -43,8 +43,6 @@ final class DoctrineSqlLogger implements SQLLogger
             return $scoutSqlLogger;
         }
 
-        // @todo if already a Logger chain, just add scoutSqlLogger
-
         $connectionConfiguration->setSQLLogger(new LoggerChain([
             $currentLogger,
             $scoutSqlLogger,
