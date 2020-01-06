@@ -8,7 +8,6 @@ use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Scoutapm\ScoutApmAgent;
-use Scoutapm\ScoutApmBundle\EventListener\DoctrineSqlLogger;
 use Scoutapm\ScoutApmBundle\EventListener\InstrumentationListener;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
@@ -29,7 +28,7 @@ final class InstrumentationListenerTest extends TestCase
 
         $this->agent = $this->createMock(ScoutApmAgent::class);
 
-        $this->listener = new InstrumentationListener($this->agent, new DoctrineSqlLogger($this->agent));
+        $this->listener = new InstrumentationListener($this->agent);
     }
 
     /**

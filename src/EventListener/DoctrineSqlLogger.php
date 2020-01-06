@@ -19,36 +19,22 @@ final class DoctrineSqlLogger implements SQLLogger
         $this->agent = $agent;
     }
 
-    /**
-     * Note: `$connection` is `null`-able since we cannot guarantee Doctrine is installed here. The DI is configured in
-     * such a way that if `doctrine.dbal.default_connection` is invalid, it passes `null`, so we can use that to detect
-     * if Doctrine is available and configured.
-     */
-    public static function register(?Connection $connection, ScoutApmAgent $agent) : self
+    public function registerWith(Connection $connection) : void
     {
-        $scoutSqlLogger = new self($agent);
-
-        if ($connection === null) {
-            // Doctrine is not configured...
-            return $scoutSqlLogger;
-        }
-
         $connectionConfiguration = $connection->getConfiguration();
 
         $currentLogger = $connectionConfiguration->getSQLLogger();
 
         if ($currentLogger === null) {
-            $connectionConfiguration->setSQLLogger($scoutSqlLogger);
+            $connectionConfiguration->setSQLLogger($this);
 
-            return $scoutSqlLogger;
+            return;
         }
 
         $connectionConfiguration->setSQLLogger(new LoggerChain([
             $currentLogger,
-            $scoutSqlLogger,
+            $this,
         ]));
-
-        return $scoutSqlLogger;
     }
 
     /**

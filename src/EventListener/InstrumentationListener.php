@@ -23,13 +23,7 @@ final class InstrumentationListener implements EventSubscriberInterface
     /** @var ScoutApmAgent */
     private $agent;
 
-    /**
-     * DoctrineSqlLogger is depended upon so we can trigger the factory to register the logger.
-     *
-     * @todo investigate a better way of doing this.
-     * @noinspection PhpUnusedParameterInspection
-     */
-    public function __construct(ScoutApmAgent $agent, DoctrineSqlLogger $doctrineSqlLogger)
+    public function __construct(ScoutApmAgent $agent)
     {
         $this->agent = $agent;
     }

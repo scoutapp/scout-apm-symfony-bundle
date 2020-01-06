@@ -20,13 +20,10 @@
                  class="Scoutapm\ScoutApmBundle\EventListener\InstrumentationListener">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="Scoutapm\ScoutApmAgent" />
-            <argument type="service" id="Scoutapm\ScoutApmBundle\EventListener\DoctrineSqlLogger" />
         </service>
 
-        <service id="Scoutapm\ScoutApmBundle\EventListener\DoctrineSqlLogger">
-            <factory class="Scoutapm\ScoutApmBundle\EventListener\DoctrineSqlLogger" method="register" />
-            <tag name="thing" />
-            <argument type="service" id="doctrine.dbal.default_connection" on-invalid="null" />
+        <service id="Scoutapm\ScoutApmBundle\EventListener\DoctrineSqlLogger"
+                 class="Scoutapm\ScoutApmBundle\EventListener\DoctrineSqlLogger">
             <argument type="service" id="Scoutapm\ScoutApmAgent" />
         </service>
     </services>
