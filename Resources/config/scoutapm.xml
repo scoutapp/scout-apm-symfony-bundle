@@ -23,7 +23,8 @@
         </service>
 
         <service id="Scoutapm\ScoutApmBundle\EventListener\DoctrineSqlLogger"
-                 class="Scoutapm\ScoutApmBundle\EventListener\DoctrineSqlLogger">
+                 class="Scoutapm\ScoutApmBundle\EventListener\DoctrineSqlLogger"
+                 public="true">
             <argument type="service" id="Scoutapm\ScoutApmAgent" />
         </service>
     </services>
