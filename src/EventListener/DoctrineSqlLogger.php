@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Scoutapm\ScoutApmBundle\EventListener;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Logging\LoggerChain;
 use Doctrine\DBAL\Logging\SQLLogger;
-use Doctrine\ORM\EntityManagerInterface;
 use Scoutapm\ScoutApmAgent;
 
 final class DoctrineSqlLogger implements SQLLogger
@@ -19,23 +19,28 @@ final class DoctrineSqlLogger implements SQLLogger
         $this->agent = $agent;
     }
 
-    public static function register(EntityManagerInterface $entityManager, ScoutApmAgent $agent) : self
+    public static function register(?Connection $connection, ScoutApmAgent $agent) : self
     {
         $scoutSqlLogger = new self($agent);
 
-        $entityManagerConfiguration = $entityManager->getConfiguration();
+        if ($connection === null) {
+            // Doctrine is not configured...
+            return $scoutSqlLogger;
+        }
 
-        $currentLogger = $entityManagerConfiguration->getSQLLogger();
+        $connectionConfiguration = $connection->getConfiguration();
+
+        $currentLogger = $connectionConfiguration->getSQLLogger();
 
         if ($currentLogger === null) {
-            $entityManagerConfiguration->setSQLLogger($scoutSqlLogger);
+            $connectionConfiguration->setSQLLogger($scoutSqlLogger);
 
             return $scoutSqlLogger;
         }
 
         // @todo if already a Logger chain, just add scoutSqlLogger
 
-        $entityManagerConfiguration->setSQLLogger(new LoggerChain([
+        $connectionConfiguration->setSQLLogger(new LoggerChain([
             $currentLogger,
             $scoutSqlLogger,
         ]));
