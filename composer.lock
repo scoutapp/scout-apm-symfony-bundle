@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c0e1aaa697d761ab64b354e16b68cd07",
+    "content-hash": "938a3594c1d18534654d21ad01c629ae",
     "packages": [
         {
             "name": "ocramius/package-versions",
@@ -421,16 +421,16 @@
         },
         {
             "name": "scoutapp/scout-apm-php",
-            "version": "v3.1.0",
+            "version": "v4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scoutapp/scout-apm-php.git",
-                "reference": "0b9e816f2c333a22587732b55ce18cea61296bdc"
+                "reference": "d684eb23b045056f6cbb2bd486210769460aadda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scoutapp/scout-apm-php/zipball/0b9e816f2c333a22587732b55ce18cea61296bdc",
-                "reference": "0b9e816f2c333a22587732b55ce18cea61296bdc",
+                "url": "https://api.github.com/repos/scoutapp/scout-apm-php/zipball/d684eb23b045056f6cbb2bd486210769460aadda",
+                "reference": "d684eb23b045056f6cbb2bd486210769460aadda",
                 "shasum": ""
             },
             "require": {
@@ -476,7 +476,7 @@
                 "monitoring",
                 "performance"
             ],
-            "time": "2019-12-31T10:18:27+00:00"
+            "time": "2020-02-04T12:26:46+00:00"
         },
         {
             "name": "symfony/config",
