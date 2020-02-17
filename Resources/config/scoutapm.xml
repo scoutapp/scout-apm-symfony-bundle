@@ -27,5 +27,11 @@
                  public="true">
             <argument type="service" id="Scoutapm\ScoutApmAgent" />
         </service>
+
+        <service id="Scoutapm\ScoutApmBundle\Twig\TwigDecorator"
+                 decorates="twig">
+            <argument type="service" id="Scoutapm\ScoutApmBundle\Twig\TwigDecorator.inner" />
+            <argument type="service" id="Scoutapm\ScoutApmAgent" />
+        </service>
     </services>
 </container>
