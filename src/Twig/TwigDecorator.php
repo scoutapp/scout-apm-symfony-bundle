@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Scoutapm\ScoutApmBundle\Twig;
 
+use Closure;
 use Scoutapm\ScoutApmAgent;
 use Twig\Compiler;
 use Twig\Environment as Twig;
@@ -41,8 +42,20 @@ class TwigDecorator extends Twig
         $this->agent = $agent;
     }
 
+    /**
+     * @param string|TemplateWrapper $nameOrTemplateWrapper
+     */
+    private function nameOrConvertTemplateWrapperToString($nameOrTemplateWrapper) : string
+    {
+        if (! $nameOrTemplateWrapper instanceof TemplateWrapper) {
+            return $nameOrTemplateWrapper;
+        }
+
+        return $nameOrTemplateWrapper->getTemplateName();
+    }
+
     /** @return mixed */
-    private function instrument(string $name, callable $callable)
+    private function instrument(string $name, Closure $callable)
     {
         return $this->agent->instrument(
             'View',
@@ -52,13 +65,13 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function enableDebug()
+    public function enableDebug() : void
     {
         $this->twig->enableDebug();
     }
 
     /** {@inheritDoc} */
-    public function disableDebug()
+    public function disableDebug() : void
     {
         $this->twig->disableDebug();
     }
@@ -70,13 +83,13 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function enableAutoReload()
+    public function enableAutoReload() : void
     {
         $this->twig->enableAutoReload();
     }
 
     /** {@inheritDoc} */
-    public function disableAutoReload()
+    public function disableAutoReload() : void
     {
         $this->twig->disableAutoReload();
     }
@@ -88,13 +101,13 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function enableStrictVariables()
+    public function enableStrictVariables() : void
     {
         $this->twig->enableStrictVariables();
     }
 
     /** {@inheritDoc} */
-    public function disableStrictVariables()
+    public function disableStrictVariables() : void
     {
         $this->twig->disableStrictVariables();
     }
@@ -112,7 +125,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function setCache($cache)
+    public function setCache($cache) : void
     {
         $this->twig->setCache($cache);
     }
@@ -127,7 +140,7 @@ class TwigDecorator extends Twig
     public function render($name, array $context = []) : string
     {
         return $this->instrument(
-            $name,
+            $this->nameOrConvertTemplateWrapperToString($name),
             function () use ($name, $context) {
                 return $this->twig->render($name, $context);
             }
@@ -138,7 +151,7 @@ class TwigDecorator extends Twig
     public function display($name, array $context = []) : void
     {
         $this->instrument(
-            $name,
+            $this->nameOrConvertTemplateWrapperToString($name),
             function () use ($name, $context) : void {
                 $this->twig->display($name, $context);
             }
@@ -176,7 +189,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function setLexer(Lexer $lexer)
+    public function setLexer(Lexer $lexer) : void
     {
         $this->twig->setLexer($lexer);
     }
@@ -188,7 +201,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function setParser(Parser $parser)
+    public function setParser(Parser $parser) : void
     {
         $this->twig->setParser($parser);
     }
@@ -200,7 +213,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function setCompiler(Compiler $compiler)
+    public function setCompiler(Compiler $compiler) : void
     {
         $this->twig->setCompiler($compiler);
     }
@@ -218,7 +231,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function setLoader(LoaderInterface $loader)
+    public function setLoader(LoaderInterface $loader) : void
     {
         $this->twig->setLoader($loader);
     }
@@ -230,7 +243,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function setCharset(string $charset)
+    public function setCharset(string $charset) : void
     {
         $this->twig->setCharset($charset);
     }
@@ -248,7 +261,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function addRuntimeLoader(RuntimeLoaderInterface $loader)
+    public function addRuntimeLoader(RuntimeLoaderInterface $loader) : void
     {
         $this->twig->addRuntimeLoader($loader);
     }
@@ -266,13 +279,13 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function addExtension(ExtensionInterface $extension)
+    public function addExtension(ExtensionInterface $extension) : void
     {
         $this->twig->addExtension($extension);
     }
 
     /** {@inheritDoc} */
-    public function setExtensions(array $extensions)
+    public function setExtensions(array $extensions) : void
     {
         $this->twig->setExtensions($extensions);
     }
@@ -284,7 +297,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function addTokenParser(TokenParserInterface $parser)
+    public function addTokenParser(TokenParserInterface $parser) : void
     {
         $this->twig->addTokenParser($parser);
     }
@@ -302,7 +315,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function addNodeVisitor(NodeVisitorInterface $visitor)
+    public function addNodeVisitor(NodeVisitorInterface $visitor) : void
     {
         $this->twig->addNodeVisitor($visitor);
     }
@@ -314,7 +327,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function addFilter(TwigFilter $filter)
+    public function addFilter(TwigFilter $filter) : void
     {
         $this->twig->addFilter($filter);
     }
@@ -326,7 +339,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function registerUndefinedFilterCallback(callable $callable)
+    public function registerUndefinedFilterCallback(callable $callable) : void
     {
         $this->twig->registerUndefinedFilterCallback($callable);
     }
@@ -338,7 +351,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function addTest(TwigTest $test)
+    public function addTest(TwigTest $test) : void
     {
         $this->twig->addTest($test);
     }
@@ -356,7 +369,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function addFunction(TwigFunction $function)
+    public function addFunction(TwigFunction $function) : void
     {
         $this->twig->addFunction($function);
     }
@@ -368,7 +381,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function registerUndefinedFunctionCallback(callable $callable)
+    public function registerUndefinedFunctionCallback(callable $callable) : void
     {
         $this->twig->registerUndefinedFunctionCallback($callable);
     }
@@ -380,7 +393,7 @@ class TwigDecorator extends Twig
     }
 
     /** {@inheritDoc} */
-    public function addGlobal(string $name, $value)
+    public function addGlobal(string $name, $value) : void
     {
         $this->twig->addGlobal($name, $value);
     }

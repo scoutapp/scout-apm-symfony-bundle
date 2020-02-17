@@ -21,6 +21,20 @@
             <errorLevel type="suppress">
                 <referencedMethod name="Doctrine\DBAL\Configuration::setSQLLogger"/>
                 <referencedMethod name="Doctrine\DBAL\Configuration::getSQLLogger"/>
+                <referencedMethod name="Twig\Environment::getBinaryOperators"/>
+                <referencedMethod name="Twig\Environment::getUnaryOperators"/>
+                <referencedMethod name="Twig\Environment::getGlobals"/>
+                <referencedMethod name="Twig\Environment::getFunctions"/>
+                <referencedMethod name="Twig\Environment::getTest"/>
+                <referencedMethod name="Twig\Environment::getTests"/>
+                <referencedMethod name="Twig\Environment::getFilters"/>
+                <referencedMethod name="Twig\Environment::getFilter"/>
+                <referencedMethod name="Twig\Environment::getTags"/>
+                <referencedMethod name="Twig\Environment::getTokenParsers"/>
+                <referencedMethod name="Twig\Environment::loadTemplate"/>
+                <referencedMethod name="Twig\Environment::getTemplateClass"/>
+                <referencedMethod name="Twig\Environment::getNodeVisitors"/>
+                <referencedMethod name="Twig\Environment::getFunction"/>
             </errorLevel>
         </InternalMethod>
     </issueHandlers>
