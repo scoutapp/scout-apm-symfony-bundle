@@ -36,15 +36,11 @@ final class InstrumentationListener implements EventSubscriberInterface
 
     /**
      * @throws Exception
-     *
-     * @noinspection PhpUnused
-     * @psalm-suppress MissingDependency https://github.com/scoutapp/scout-apm-symfony-bundle/issues/10
      */
     public function onKernelController(ControllerEvent $controllerEvent) : void
     {
         /**
          * @noinspection UnusedFunctionResultInspection
-         * @psalm-suppress UndefinedMethod https://github.com/scoutapp/scout-apm-symfony-bundle/issues/10
          */
         $this->agent->startSpan(sprintf(
             '%s/%s',
@@ -59,12 +55,6 @@ final class InstrumentationListener implements EventSubscriberInterface
     private function controllerNameFromCallable(callable $controller) : string
     {
         if (is_array($controller)) {
-            /**
-             * @link https://github.com/vimeo/psalm/commit/e68fd02e805dffd503f2ce578a2ecae12c11b8af
-             * Update our Psalm version when possible.
-             *
-             * @psalm-suppress ArgumentTypeCoercion Reported this and it's already fixed in Psalm's dev-master
-             */
             return sprintf('%s::%s', (new ReflectionClass($controller[0]))->getShortName(), $controller[1]);
         }
 
