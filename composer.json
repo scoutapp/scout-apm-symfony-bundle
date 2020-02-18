@@ -13,7 +13,7 @@
         "php": ">=7.1.0,<7.5.0",
         "ext-json": "*",
         "psr/log": "^1.0",
-        "scoutapp/scout-apm-php": "^3.1",
+        "scoutapp/scout-apm-php": "^4.0.1",
         "symfony/config": "^4.0 || ^5.0",
         "symfony/dependency-injection": "^4.0 || ^5.0",
         "symfony/event-dispatcher": "^4.0 || ^5.0",
@@ -22,13 +22,16 @@
     "require-dev": {
         "doctrine/coding-standard": "^6.0",
         "phpunit/phpunit": "^7.5.15",
-        "psalm/plugin-phpunit": "^0.8.0",
+        "psalm/plugin-phpunit": "^0.9.0",
         "psr/simple-cache": "^1.0",
         "symfony/orm-pack": "^1.0",
+        "symfony/twig-pack": "^1.0",
         "vimeo/psalm": "^3.8"
     },
     "suggest": {
-        "psr/simple-cache": "Set up a service for Psr\\SimpleCache\\CacheInterface to improve Scout performance"
+        "psr/simple-cache": "Set up a service for Psr\\SimpleCache\\CacheInterface to improve Scout performance",
+        "symfony/orm-pack": "If you would like to use Doctrine ORM instrumentation, symfony/orm-pack must be installed",
+        "symfony/twig-pack": "If you would like to use Twig instrumentation, symfony/orm-pack must be installed"
     },
     "autoload": {
         "psr-4": {
