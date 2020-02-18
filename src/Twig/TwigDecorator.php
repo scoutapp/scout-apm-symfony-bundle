@@ -13,7 +13,10 @@ use Scoutapm\ScoutApmAgent;
 use Twig\Environment as Twig;
 use Twig\TemplateWrapper;
 
-/** @psalm-suppress RedundantCondition */
+/**
+ * @psalm-suppress RedundantCondition
+ * @psalm-suppress TypeDoesNotContainType
+ */
 if (Twig::MAJOR_VERSION === 2) {
     require_once __DIR__ . '/TwigMethods-Twig2.php';
 } else {
