@@ -106,7 +106,7 @@ final class TwigDecoratorTest extends TestCase
                 self::isType(IsType::TYPE_CALLABLE)
             )
             ->willReturnCallback(
-            /** @return mixed */
+                /** @return mixed */
                 static function (string $type, string $name, callable $callback) {
                     return $callback();
                 }
@@ -141,7 +141,7 @@ final class TwigDecoratorTest extends TestCase
                 self::isType(IsType::TYPE_CALLABLE)
             )
             ->willReturnCallback(
-            /** @return mixed */
+                /** @return mixed */
                 static function (string $type, string $name, callable $callback) {
                     return $callback();
                 }
@@ -174,6 +174,10 @@ final class TwigDecoratorTest extends TestCase
         );
         $templateWrapper = new TemplateWrapper($this->createMock(Twig::class), $this->createMock(Template::class));
 
+        /**
+         * @psalm-suppress RedundantCondition
+         * @psalm-suppress TypeDoesNotContainType
+         */
         return [
             ['enableDebug', null, []],
             ['disableDebug', null, []],
@@ -190,7 +194,13 @@ final class TwigDecoratorTest extends TestCase
             ['render', 'foo', ['foo', ['a' => 'a']]],
             ['display', null, ['foo', ['a' => 'a']]],
             ['load', $templateWrapper, ['foo']],
-            ['loadTemplate', $this->createMock(Template::class), ['foo', 'bar', 0]],
+            [
+                'loadTemplate',
+                $this->createMock(Template::class),
+                Twig::MAJOR_VERSION === 2
+                    ? ['foo', 0]
+                    : ['foo', 'bar', 0],
+            ],
             ['createTemplate', $templateWrapper, ['foo', 'bar']],
             ['isTemplateFresh', true, ['foo', 0]],
             ['resolveTemplate', $templateWrapper, ['foo']],

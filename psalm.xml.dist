@@ -10,6 +10,8 @@
         <directory name="test"/>
         <ignoreFiles>
             <directory name="vendor"/>
+            <file name="src/Twig/TwigMethods-Twig2.php"/>
+            <file name="src/Twig/TwigMethods-Twig3.php"/>
         </ignoreFiles>
     </projectFiles>
     <plugins>
