@@ -10,7 +10,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- Nothing.
+- [#20](https://github.com/scoutapp/scout-apm-symfony-bundle/pull/20) Multiple changes
+  - Replace Travis with GitHub actions
+  - Increase matrix spread to test combinations of Symfony 4/5 and Twig 2/3 against PHP 7.1-7.4
+  - Upgrade to `scoutapp/scout-apm-php:^5.0` -- *NOTE* there [are upstream BC breaks](https://github.com/scoutapp/scout-apm-php/releases/tag/v5.0.0)
+  - Fix missing configuration option in `ConfigurationTest`
 
 ### Deprecated
 
