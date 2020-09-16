@@ -9,6 +9,7 @@ use Exception;
 use ReflectionClass;
 use ReflectionException;
 use Scoutapm\Events\Span\Span;
+use Scoutapm\Events\Span\SpanReference;
 use Scoutapm\ScoutApmAgent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
@@ -22,6 +23,9 @@ final class InstrumentationListener implements EventSubscriberInterface
 {
     /** @var ScoutApmAgent */
     private $agent;
+
+    /** @var SpanReference|null */
+    private $currentSpan;
 
     public function __construct(ScoutApmAgent $agent)
     {
@@ -42,7 +46,7 @@ final class InstrumentationListener implements EventSubscriberInterface
         /**
          * @noinspection UnusedFunctionResultInspection
          */
-        $this->agent->startSpan(sprintf(
+        $this->currentSpan = $this->agent->startSpan(sprintf(
             '%s/%s',
             Span::INSTRUMENT_CONTROLLER,
             $this->controllerNameFromCallable($controllerEvent->getController())
@@ -72,7 +76,12 @@ final class InstrumentationListener implements EventSubscriberInterface
     /** @noinspection PhpUnused */
     public function onKernelResponse() : void
     {
+        if ($this->currentSpan === null) {
+            return;
+        }
+
         $this->agent->stopSpan();
+        $this->currentSpan = null;
     }
 
     /**

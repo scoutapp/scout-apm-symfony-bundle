@@ -39,6 +39,7 @@ final class ConfigurationTest extends TestCase
                     'core_agent_triple' => null,
                     'core_agent_permissions' => null,
                     'disabled_instruments' => null,
+                    'log_payload_content' => null,
                 ],
             ],
             (new Processor())->processConfiguration(

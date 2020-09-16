@@ -7,6 +7,8 @@ namespace Scoutapm\ScoutApmBundle\Tests\Unit\EventListener;
 use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Scoutapm\Events\Span\Span;
+use Scoutapm\Events\Span\SpanReference;
 use Scoutapm\ScoutApmAgent;
 use Scoutapm\ScoutApmBundle\EventListener\InstrumentationListener;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,6 +45,7 @@ final class InstrumentationListenerTest extends TestCase
             'array-instance' => [[$this, 'setUp'], 'InstrumentationListenerTest::setUp'],
             'string' => ['file_get_contents', 'file_get_contents'],
             'closure' => [
+                // phpcs:ignore Squiz.Arrays.ArrayDeclaration.ValueNoNewline
                 static function () : void {
                 },
                 'closure',
@@ -78,15 +81,56 @@ final class InstrumentationListenerTest extends TestCase
 
         $this->agent->expects(self::once())
             ->method('startSpan')
-            ->with('Controller/' . $expectedName);
+            ->with('Controller/' . $expectedName)
+            ->willReturn(SpanReference::fromSpan($this->createMock(Span::class)));
 
         $this->listener->onKernelController($controllerEvent);
     }
 
-    public function testSpanIsStoppedOnKernelResponse() : void
+    public function testSpanIsNotStoppedWhenStartSpanReturnsNull() : void
     {
         $this->agent->expects(self::once())
+            ->method('startSpan')
+            ->with('Controller/file_get_contents')
+            ->willReturn(null);
+
+        $this->agent->expects(self::never())
             ->method('stopSpan');
+
+        $this->listener->onKernelController(new ControllerEvent(
+            $this->createMock(HttpKernelInterface::class),
+            'file_get_contents',
+            new Request(),
+            null
+        ));
+
+        $this->listener->onKernelResponse();
+    }
+
+    public function testSpanIsNotStoppedWhenSpanNeverStarted() : void
+    {
+        $this->agent->expects(self::never())
+            ->method('stopSpan');
+
+        $this->listener->onKernelResponse();
+    }
+
+    public function testSpanIsStoppedOnKernelResponseWhenSpanWasStarted() : void
+    {
+        $this->agent->expects(self::once())
+            ->method('startSpan')
+            ->with('Controller/file_get_contents')
+            ->willReturn(SpanReference::fromSpan($this->createMock(Span::class)));
+
+        $this->agent->expects(self::once())
+            ->method('stopSpan');
+
+        $this->listener->onKernelController(new ControllerEvent(
+            $this->createMock(HttpKernelInterface::class),
+            'file_get_contents',
+            new Request(),
+            null
+        ));
 
         $this->listener->onKernelResponse();
     }
