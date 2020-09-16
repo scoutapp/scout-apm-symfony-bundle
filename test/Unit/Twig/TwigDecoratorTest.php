@@ -174,6 +174,8 @@ final class TwigDecoratorTest extends TestCase
         );
         $templateWrapper = new TemplateWrapper($this->createMock(Twig::class), $this->createMock(Template::class));
 
+        // phpcs:disable Squiz.Arrays.ArrayDeclaration.ValueNoNewline
+        // phpcs:disable SlevomatCodingStandard.ControlStructures.ControlStructureSpacing.IncorrectLinesCountBeforeControlStructure
         /**
          * @psalm-suppress RedundantCondition
          * @psalm-suppress TypeDoesNotContainType
@@ -257,6 +259,8 @@ final class TwigDecoratorTest extends TestCase
             ['getBinaryOperators', ['a', 'b'], []],
         ];
     }
+
+    // phpcs:enable
 
     /**
      * @param mixed   $returnValue

@@ -43,6 +43,7 @@ final class InstrumentationListenerTest extends TestCase
             'array-instance' => [[$this, 'setUp'], 'InstrumentationListenerTest::setUp'],
             'string' => ['file_get_contents', 'file_get_contents'],
             'closure' => [
+                // phpcs:ignore Squiz.Arrays.ArrayDeclaration.ValueNoNewline
                 static function () : void {
                 },
                 'closure',
