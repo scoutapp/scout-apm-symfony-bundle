@@ -11,6 +11,7 @@ use Doctrine\ORM\Configuration;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Scoutapm\Events\Span\Span;
+use Scoutapm\Events\Span\SpanReference;
 use Scoutapm\ScoutApmAgent;
 use Scoutapm\ScoutApmBundle\EventListener\DoctrineSqlLogger;
 
@@ -70,14 +71,49 @@ final class DoctrineSqlLoggerTest extends TestCase
         $this->agent->expects(self::once())
             ->method('startSpan')
             ->with('SQL/Query')
-            ->willReturn($span);
+            ->willReturn(SpanReference::fromSpan($span));
 
         $this->sqlLogger->startQuery('SELECT * FROM great_table', [], []);
     }
 
-    public function testStopQueryStopsSpan() : void
+    public function testStopQueryStopsQueryWhenSpanWasStarted() : void
+    {
+        $span = $this->createMock(Span::class);
+        $span->expects(self::once())
+            ->method('tag')
+            ->with('db.statement', 'SELECT * FROM great_table');
+
+        $this->agent->expects(self::once())
+            ->method('startSpan')
+            ->with('SQL/Query')
+            ->willReturn(SpanReference::fromSpan($span));
+
+        $this->agent->expects(self::once())
+            ->method('stopSpan');
+
+        $this->sqlLogger->startQuery('SELECT * FROM great_table', [], []);
+
+        $this->sqlLogger->stopQuery();
+    }
+
+    public function testStopQueryDoesNotStopSpanIfStartSpanReturnedNull() : void
     {
         $this->agent->expects(self::once())
+            ->method('startSpan')
+            ->with('SQL/Query')
+            ->willReturn(null);
+
+        $this->agent->expects(self::never())
+            ->method('stopSpan');
+
+        $this->sqlLogger->startQuery('SELECT * FROM great_table', [], []);
+
+        $this->sqlLogger->stopQuery();
+    }
+
+    public function testStopQueryDoesNothingIfSpanWasNotStarted() : void
+    {
+        $this->agent->expects(self::never())
             ->method('stopSpan');
 
         $this->sqlLogger->stopQuery();

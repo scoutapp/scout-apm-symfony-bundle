@@ -7,12 +7,16 @@ namespace Scoutapm\ScoutApmBundle\EventListener;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Logging\LoggerChain;
 use Doctrine\DBAL\Logging\SQLLogger;
+use Scoutapm\Events\Span\SpanReference;
 use Scoutapm\ScoutApmAgent;
 
 final class DoctrineSqlLogger implements SQLLogger
 {
     /** @var ScoutApmAgent */
     private $agent;
+
+    /** @var SpanReference|null */
+    private $currentSpan;
 
     public function __construct(ScoutApmAgent $agent)
     {
@@ -42,8 +46,12 @@ final class DoctrineSqlLogger implements SQLLogger
      */
     public function startQuery($sql, ?array $params = null, ?array $types = null)
     {
-        $span = $this->agent->startSpan('SQL/Query');
-        $span->tag('db.statement', $sql);
+        $this->currentSpan = $this->agent->startSpan('SQL/Query');
+
+        if ($this->currentSpan === null) {
+            return;
+        }
+        $this->currentSpan->tag('db.statement', $sql);
     }
 
     /**
@@ -51,6 +59,11 @@ final class DoctrineSqlLogger implements SQLLogger
      */
     public function stopQuery()
     {
+        if ($this->currentSpan === null) {
+            return;
+        }
+
         $this->agent->stopSpan();
+        $this->currentSpan = null;
     }
 }
