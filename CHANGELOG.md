@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.0.4 - 2020-11-10
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- [#22](https://github.com/scoutapp/scout-apm-symfony-bundle/pull/22) Require `scout-apm-php:^5.1`
+  - Note, if you use any of the `Span::INSTRUMENT_*` constants, these are deprecated, you should now use the
+    new `SpanReference::INSTRUMENT_*` constants. We plan to remove the `Span::INSTRUMENT_*` constants with the release
+    of `scout-apm-php:6.0.0`.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
 ## 0.0.3 - 2020-09-16
 
 ### Added
