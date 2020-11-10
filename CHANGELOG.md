@@ -25,6 +25,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
+- Nothing.
+
 ## 0.0.3 - 2020-09-16
 
 ### Added
