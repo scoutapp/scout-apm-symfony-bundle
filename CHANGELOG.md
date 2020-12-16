@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.0.5 - 2020-12-16
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- [#23](https://github.com/scoutapp/scout-apm-symfony-bundle/pull/23) Updated to `scout-apm-php` ^5.3.0
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 0.0.4 - 2020-11-10
 
 ### Added
