@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.0.6 - 2021-02-23
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- [#25](https://github.com/scoutapp/scout-apm-symfony-bundle/pull/25) Updated to `scout-apm-php` ^6.0
+  - `scout-apm-symfony-bundle` is now a meta package only, which defines which versions of Symfony we support. You
+    should still use this package directly if you use Symfony to ensure you are running a compatible Symfony version.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 0.0.5 - 2020-12-16
 
 ### Added
