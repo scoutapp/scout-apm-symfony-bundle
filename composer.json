@@ -10,11 +10,11 @@
         }
     ],
     "require": {
-        "scoutapp/scout-apm-php": "^7.0",
-        "symfony/config": "^4.0 || ^5.0",
-        "symfony/dependency-injection": "^4.0 || ^5.0",
-        "symfony/event-dispatcher": "^4.0 || ^5.0",
-        "symfony/http-kernel": "^4.0 || ^5.0"
+        "scoutapp/scout-apm-php": "^8.0",
+        "symfony/config": "^4.0 || ^5.0 || ^6.0",
+        "symfony/dependency-injection": "^4.0 || ^5.0 || ^6.0",
+        "symfony/event-dispatcher": "^4.0 || ^5.0 || ^6.0",
+        "symfony/http-kernel": "^4.0 || ^5.0 || ^6.0"
     },
     "suggest": {
         "psr/simple-cache": "Set up a service for Psr\\SimpleCache\\CacheInterface to improve Scout performance",

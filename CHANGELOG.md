@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.1.0 - 2022-03-09
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- [#28](https://github.com/scoutapp/scout-apm-symfony-bundle/pull/28) Updated to require `scout-apm-php` ^8.0 (Symfony 6 support)
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.0.0 - 2022-01-19
 
 ### Added
@@ -10,7 +32,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- [#26](https://github.com/scoutapp/scout-apm-laravel/pull/26) Updated to require `scout-apm-php` ^7.0
+- [#26](https://github.com/scoutapp/scout-apm-symfony-bundle/pull/26) Updated to require `scout-apm-php` ^7.0
 
 ### Deprecated
 
