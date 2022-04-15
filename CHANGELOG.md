@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+# THE CHANGELOG HAS MOVED
+
+Please see [the releases page](https://github.com/scoutapp/scout-apm-symfony-bundle/releases) for release 1.2.0 onwards.
+
 ## 1.1.0 - 2022-03-09
 
 ### Added
